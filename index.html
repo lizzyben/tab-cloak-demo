@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tab Cloaking Demo</title>
+    <script>
+        // Function to set the cookie value
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        // Function to get the cookie value
+        function getCookie(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        // Function to toggle the tab cloaking
+        function toggleTabCloaking() {
+            var cloakingButton = document.getElementById('cloaking-button');
+            var isCloakingEnabled = getCookie('tabCloaking') === 'true';
+
+            if (isCloakingEnabled) {
+                // Tab cloaking is currently enabled, so we disable it
+                setCookie('tabCloaking', 'false', 365);
+                cloakingButton.innerText = 'Enable Tab Cloaking';
+            } else {
+                // Tab cloaking is currently disabled, so we enable it
+                setCookie('tabCloaking', 'true', 365);
+                cloakingButton.innerText = 'Disable Tab Cloaking';
+            }
+        }
+
+        // Function to check the tab cloaking state on page load
+        function checkTabCloakingState() {
+            var cloakingButton = document.getElementById('cloaking-button');
+            var isCloakingEnabled = getCookie('tabCloaking') === 'true';
+
+            if (isCloakingEnabled) {
+                // Tab cloaking is currently enabled
+                cloakingButton.innerText = 'Disable Tab Cloaking';
+                // Open the popup with about://blank
+                window.open('about:blank', '_blank');
+            } else {
+                // Tab cloaking is currently disabled
+                cloakingButton.innerText = 'Enable Tab Cloaking';
+            }
+        }
+    </script>
+</head>
+<body onload="checkTabCloakingState();">
+    <h1>Tab Cloaking Demo</h1>
+    <button id="cloaking-button" onclick="toggleTabCloaking();">Enable Tab Cloaking</button>
+</body>
+</html>
