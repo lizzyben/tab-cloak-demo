@@ -52,8 +52,10 @@
             if (isCloakingEnabled) {
                 // Tab cloaking is currently enabled
                 cloakingButton.innerText = 'Disable Tab Cloaking';
-                // Open the popup with about://blank
-                window.open('about:blank', '_blank');
+                // Open the specified URL in a new tab after a small delay
+                setTimeout(function() {
+                    window.open('https://poopy-games.netlify.app/', '_blank');
+                }, 100);
             } else {
                 // Tab cloaking is currently disabled
                 cloakingButton.innerText = 'Enable Tab Cloaking';
