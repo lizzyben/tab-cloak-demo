@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Toggle Script Execution</title>
+  <title>Toggle Tab Cloak</title>
 </head>
 <body>
-  <button id="toggleButton">Toggle Script Execution</button>
+  <button id="toggleButton">Enable Tab Cloak</button>
 
   <script>
     function setCookie(name, value, days) {
@@ -36,16 +36,16 @@
       document.cookie = name + "=; Max-Age=-99999999; path=/";
     }
 
-    function toggleScriptExecution() {
-      var isRunning = getCookie("scriptRunning");
-      if (isRunning === "true") {
-        // Script is currently running, stop it
-        eraseCookie("scriptRunning");
-        alert("Script execution stopped!");
+    function toggleTabCloak() {
+      var isCloakEnabled = getCookie("tabCloakEnabled");
+      if (isCloakEnabled === "true") {
+        // Tab cloak is currently enabled, disable it
+        eraseCookie("tabCloakEnabled");
+        document.getElementById("toggleButton").innerText = "Enable Tab Cloak";
       } else {
-        // Script is not running, start it
-        setCookie("scriptRunning", "true", 365);
-        alert("Script execution started!");
+        // Tab cloak is currently disabled, enable it
+        setCookie("tabCloakEnabled", "true", 365);
+        document.getElementById("toggleButton").innerText = "Disable Tab Cloak";
         // Run your script here
         class ABC {
           constructor(config = {}) {
@@ -90,7 +90,7 @@
       }
     }
 
-    document.getElementById("toggleButton").addEventListener("click", toggleScriptExecution);
+    document.getElementById("toggleButton").addEventListener("click", toggleTabCloak);
   </script>
 </body>
 </html>
