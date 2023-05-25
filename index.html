@@ -3,21 +3,15 @@
 <head>
     <title>Tab Cloaking Demo</title>
     <script>
-        // Function to set the cookie value
-        function setCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        }
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
 
-        // Function to get the cookie value
         function getCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
                 while (c.charAt(0) == ' ') {
                     c = c.substring(1);
                 }
@@ -28,43 +22,43 @@
             return "";
         }
 
-        // Function to toggle the tab cloaking
-        function toggleTabCloaking() {
-            var cloakingButton = document.getElementById('cloaking-button');
-            var isCloakingEnabled = getCookie('tabCloaking') === 'true';
-
-            if (isCloakingEnabled) {
-                // Tab cloaking is currently enabled, so we disable it
-                setCookie('tabCloaking', 'false', 365);
-                cloakingButton.innerText = 'Enable Tab Cloaking';
-            } else {
-                // Tab cloaking is currently disabled, so we enable it
-                setCookie('tabCloaking', 'true', 365);
-                cloakingButton.innerText = 'Disable Tab Cloaking';
+        function inIframe() {
+            try {
+                return window.self !== window.top;
+            } catch (e) {
+                return true;
             }
         }
 
-        // Function to check the tab cloaking state on page load
-        function checkTabCloakingState() {
-            var cloakingButton = document.getElementById('cloaking-button');
-            var isCloakingEnabled = getCookie('tabCloaking') === 'true';
-
-            if (isCloakingEnabled) {
-                // Tab cloaking is currently enabled
-                cloakingButton.innerText = 'Disable Tab Cloaking';
-                // Open the specified URL in a new tab after a small delay
-                setTimeout(function() {
-                    window.open('https://poopy-games.netlify.app/', '_blank');
-                }, 100);
+        if ((!inIframe()) && getCookie("cloak") && (!urlParams.get("disable"))) {
+            console.log(window.location.href);
+            window.doCloak = true;
+            if (cloak(window.location.href, true)) {
+                window.location.replace("https://google.com");
+            }
+        } else {
+            if (!inIframe()) {
+                document.cookie = "cloak=";
+                window.doCloak = false;
             } else {
-                // Tab cloaking is currently disabled
-                cloakingButton.innerText = 'Enable Tab Cloaking';
+                window.doCloak = true;
+            }
+        }
+
+        function cloak(url, absolute) {
+            absolute = absolute || false;
+            url = absolute ? url : window.location.href.replace(/\/$/, "") + url;
+            if (window.doCloak) {
+                var page = window.open('about:blank', '_blank');
+                page.location.href = url;
+                return true;
+            } else {
+                window.open(url);
             }
         }
     </script>
 </head>
-<body onload="checkTabCloakingState();">
-    <h1>Tab Cloaking Demo</h1>
-    <button id="cloaking-button" onclick="toggleTabCloaking();">Enable Tab Cloaking</button>
+<body>
+    <!-- Your website content goes here -->
 </body>
 </html>
