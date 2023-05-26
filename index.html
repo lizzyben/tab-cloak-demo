@@ -1,96 +1,59 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <title>Toggle Tab Cloak</title>
 </head>
 <body>
-  <button id="toggleButton">Enable Tab Cloak</button>
+<!-- SUBSCRIBE TO IRWINTECH ON YOUTUBE HTTPS://YOUTUBE.COM/C/IRWINTECH -->
 
-  <script>
-    function setCookie(name, value, days) {
-      var expires = "";
-      if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-      }
-      document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    }
+<button class="button-16" onclick="myFunction()">Press This For Redirect</button>
 
-    function getCookie(name) {
-      var nameEQ = name + "=";
-      var cookies = document.cookie.split(";");
-      for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        while (cookie.charAt(0) == " ") {
-          cookie = cookie.substring(1, cookie.length);
-        }
-        if (cookie.indexOf(nameEQ) === 0) {
-          return cookie.substring(nameEQ.length, cookie.length);
-        }
-      }
-      return null;
-    }
+<script>
+function myFunction() {
+var win = window.open()
+//YOU CAN REPLACE THE LINK BELOW WITH ANYTHING YOU WANT! 
+var url = "https://mj89sp3sau2k7lj1eg3k40hkeppguj6j-a-sites-opensocial.googleusercontent.com/gadgets/ifr?container=enterprise&country=ALL&lang=en&libs=core&parent=https://sites.google.com/site/minecraftunblockedez/&sanitize=0&url=http://www.gstatic.com/sites-gadgets/iframe/iframe.xml&v=26e2802a3b854818&view=default#up_scroll=auto&up_iframeURL=https://www-sites-opensocial.googleusercontent.com/gadgets/ifr?url=https://sites.google.com/site/s022s4h6/minecraft-classic2.xml&st=e=AIHE3cCHccremKWj6%252F9u3pKNryGvskOeSCiodTt6UXk2xu0sn3NgsKTRRQd62N1fTQHQjxSJ0VoEHj4%252Fh81B5U1YbUwYHANyfxycGQTWGcyYbZb8iVrgb1vWx4qrVkoz74qb37NKMWs8&c=enterprise&rpctoken=-5820420941461032063"
+if (url) {
+var iframe = document.createElement("iframe")
+iframe.style.border = "none";
+iframe.style.width = "100%";
+iframe.style.height = "100%"
+iframe.style.margin = "0";
+iframe.src = url;
+win.document.body.appendChild(iframe);
+}
+}
+</script>
+<style>
 
-    function eraseCookie(name) {
-      document.cookie = name + "=; Max-Age=-99999999; path=/";
-    }
 
-    function toggleTabCloak() {
-      var isCloakEnabled = getCookie("tabCloakEnabled");
-      if (isCloakEnabled === "true") {
-        // Tab cloak is currently enabled, disable it
-        eraseCookie("tabCloakEnabled");
-        document.getElementById("toggleButton").innerText = "Enable Tab Cloak";
-      } else {
-        // Tab cloak is currently disabled, enable it
-        setCookie("tabCloakEnabled", "true", 365);
-        document.getElementById("toggleButton").innerText = "Disable Tab Cloak";
-        // Run your script here
-        class ABC {
-          constructor(config = {}) {
-            this.type = config.type || "blank";
-            this.url = config.url || "about:blank";
-          }
-          setType(type) {
-            if (!type) return;
-            this.type = type;
-          }
-          setUrl(url) {
-            if (!url) return;
-            this.url = url;
-          }
-          getCode() {
-            return `<iframe style="height:100%; width: 100%; border: none; position: fixed; top: 0; right: 0; left: 0; bottom: 0; border: none" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation" src="${this.url}"></iframe>`;
-          }
-          open() {
-            if (this.type == "blank") {
-              try {
-                var page = window.open();
-                page.document.body.innerHTML = `<iframe style="height:100%; width: 100%; border: none; position: fixed; top: 0; right: 0; left: 0; bottom: 0; border: none" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation" src="${this.url}"></iframe>`;
-                return page;
-              } catch {}
-            } else if (this.type == "blob") {
-              try {
-                var page = new Blob([`<iframe style="height:100%; width: 100%; border: none; position: fixed; top: 0; right: 0; left: 0; bottom: 0; border: none" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation" src="${this.url}"></iframe>`], {type: "text/html"});
-                return window.open(URL.createObjectURL(page));
-              } catch {}
-            } else if (this.type == "overwrite") {
-              try {
-                document.body.innerHTML = `<iframe style="height:100%; width: 100%; border: none; position: fixed; top: 0; right: 0; left: 0; bottom: 0; border: none" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation allow-top-navigation-by-user-activation" src="${this.url}"></iframe>`;
-                return;
-              } catch {}
-            }
-          }
-        }
+.button-16 {
+  background-color: #f8f9fa;
+  border: 1px solid #f8f9fa;
+  border-radius: 4px;
+  color: #3c4043;
+  cursor: pointer;
+  font-family: arial,sans-serif;
+  font-size: 14px;
+  height: 36px;
+  line-height: 27px;
+  min-width: 54px;
+  padding: 0 16px;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: pre;
+}
 
-        // Create an instance of ABC and run the open method
-        var abc = new ABC();
-        abc.open();
-      }
-    }
+.button-16:hover {
+  border-color: #dadce0;
+  box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
+  color: #202124;
+}
 
-    document.getElementById("toggleButton").addEventListener("click", toggleTabCloak);
-  </script>
+.button-16:focus {
+  border-color: #4285f4;
+  outline: none;
+} 
+</style>
 </body>
 </html>
